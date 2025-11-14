@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply antialiased bg-vintage-cream;
+    background-image:
+      repeating-linear-gradient(
+        90deg,
+        rgba(196, 154, 108, 0.02) 0px,
+        transparent 1px,
+        transparent 40px,
+        rgba(196, 154, 108, 0.02) 41px
+      ),
+      repeating-linear-gradient(
+        0deg,
+        rgba(196, 154, 108, 0.02) 0px,
+        transparent 1px,
+        transparent 40px,
+        rgba(196, 154, 108, 0.02) 41px
+      );
+  }
+}
+
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-in;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
