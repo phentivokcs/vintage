@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import { supabase } from '../lib/supabase';
+import { isSupabaseConfigured, supabase } from '../lib/supabase';
 
 interface SiteContent {
   hero: {
@@ -159,6 +159,13 @@ export function SiteContentProvider({ children }: { children: ReactNode }) {
   };
 
   const loadContent = async () => {
+    if (!isSupabaseConfigured) {
+      setContent(defaultContent);
+      setAssets({});
+      setLoading(false);
+      return;
+    }
+
     try {
       const cachedContent = localStorage.getItem('site_content');
       const cachedAssets = localStorage.getItem('site_assets');
@@ -325,6 +332,10 @@ export function SiteContentProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     loadContent();
+
+    if (!isSupabaseConfigured) {
+      return;
+    }
 
     const subscription = supabase
       .channel('site_content_changes')

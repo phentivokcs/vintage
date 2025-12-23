@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Product } from '../types';
 import { Heart } from 'lucide-react';
 import { useWishlist } from '../contexts/WishlistContext';
-import { supabase } from '../lib/supabase';
+import { isSupabaseConfigured, supabase } from '../lib/supabase';
 
 interface ProductCardProps {
   product: Product;
@@ -33,6 +33,11 @@ export default function ProductCard({ product }: ProductCardProps) {
   }, [product.id]);
 
   const loadWishlistCount = async () => {
+    if (!isSupabaseConfigured) {
+      setWishlistCount(0);
+      return;
+    }
+
     const { data, error } = await supabase.rpc('get_product_wishlist_count', {
       p_product_id: product.id
     });
