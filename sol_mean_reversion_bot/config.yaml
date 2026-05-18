@@ -1,0 +1,25 @@
+symbol: SOL/USDC
+timeframe: 1h
+lookback_limit: 500
+poll_seconds: 60
+
+strategy:
+  ema_period: 200
+  rsi_period: 14
+  rsi_entry: 30
+  bollinger_period: 20
+  bollinger_stddev: 2
+  atr_period: 14
+  atr_stop_multiplier: 2
+
+broker:
+  initial_balance: 10000
+  position_size_pct: 0.1
+  fee_rate: 0.001
+
+storage:
+  database_path: sol_mean_reversion_bot/bot.db
+
+logging:
+  level: INFO
+  file_path: sol_mean_reversion_bot/logs/bot.log
